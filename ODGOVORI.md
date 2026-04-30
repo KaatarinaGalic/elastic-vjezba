@@ -71,7 +71,7 @@ Razlike u _score vrijednostima mogu biti zbog ucestalosti pojma u tekstu,duzine 
     }
   ]
 }
-### lista tokena za zadatak "Na Drini ćuprija"
+### lista tokena za 5. zadatak "Na Drini ćuprija"
 {
   "tokens": [
     {
@@ -103,7 +103,7 @@ lowercase pretvara sva slova u mala npr riječ "Drini" u "drini", dok asciifoldi
 Razlika je u tome što lowercase mijenja velika/mala slova, a asciifolding uklanja posebne znakove.
 
 ### 20.objasniti zašto je analyzer ključan za full-text search i što bi se dogodilo da ga ne koristimo!
-Analyzer omogučuje da se tekst razbije na riječi i normalizira te pretraga može pronaći riječi i kada nisu identične. Na primjer upit "cuprija" pronalazi ćuprija jer analyzer uklanja dijakritike.
+Analyzer omogučuje da se tekst razbije na riječi i normalizira te pretraga može pronaći riječi i kada nisu identične. Na primjer upit "cuprija" pronalazi ćuprija jer analyzer uklanja dijakritike.Bez analyzera bi se tekst spremao kao cijelina i pretraga bi radila samo za potpuno iste izraze, što bi značajno smanjilo učinkovitost pretrage.
 
 # Završni zadatak - filmovi
 ### 30. Elasticsearch vs SQL LIKE
