@@ -51,3 +51,31 @@ GET /knjige
 
 ###Provjera broja dokumenata
 GET /knjige/_count
+
+### Zadatak 3 — match po opisu (roman)
+GET /knjige/_search
+{
+  "query": {
+    "match": {
+      "opis": "roman"
+    }
+  }
+}
+### Zadatak 3 — match pravda sudbina
+GET /knjige/_search
+{
+  "query": {
+    "match": {
+      "opis": "pravda sudbina"
+    }
+  }
+}
+###pretraga po naslovu - cuprija
+GET /knjige/_search
+{
+  "query": {
+    "match": {
+      "naslov": "cuprija"
+    }
+  }
+}
