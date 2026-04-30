@@ -129,3 +129,68 @@ POST /knjige/_analyze
   "analyzer": "hrvatski_analyzer",
   "text": "Na Drini ćuprija"
 }
+
+###Zadatak 6
+###broj knjiga po autoru
+
+GET /knjige/_search
+{
+  "size": 0,
+  "aggs": {
+    "knjige_po_autoru": {
+      "terms": {
+        "field": "autor"
+      }
+    }
+  }
+}
+
+###prosječna cijena po žanru 
+
+GET /knjige/_search
+{
+  "size": 0,
+  "aggs": {
+    "po_zanru": {
+      "terms": { "field": "zanr" },
+      "aggs": {
+        "prosjecna_cijena": {
+          "avg": { "field": "cijena" }
+        }
+      }
+    }
+  }
+}
+
+###najskuplja knjiga po žanru 
+
+GET /knjige/_search
+{
+  "size": 0,
+  "aggs": {
+    "po_zanru": {
+      "terms": { "field": "zanr" },
+      "aggs": {
+        "najveca_cijena": {
+          "max": { "field": "cijena" }
+        }
+      }
+    }
+  }
+}
+
+###broj dostupnih i nedostupnih knjiga 
+
+GET /knjige/_search
+{
+  "size": 0,
+  "aggs": {
+    "po_dostupnosti": {
+      "terms": {
+        "field": "dostupno"
+      }
+    }
+  }
+}
+
+
