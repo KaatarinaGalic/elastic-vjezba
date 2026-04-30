@@ -36,3 +36,18 @@ PUT /knjige
 }
 ###Dohvat svih podataka iz indeksa
 GET /knjige
+
+###Bulk unos podatakaPOST /knjige/_bulk
+{ "index": { "_id": "1" } }
+{ "naslov": "Na Drini ćuprija", "autor": "Ivo Andrić", "zanr": "roman", "opis": "Povijesni roman o mostu, ljudima i vremenu.", "godina": 1945, "cijena": 18.50, "dostupno": true }
+{ "index": { "_id": "2" } }
+{ "naslov": "Derviš i smrt", "autor": "Meša Selimović", "zanr": "roman", "opis": "Filozofski roman o vlasti, pravdi i ljudskoj sudbini.", "godina": 1966, "cijena": 22.00, "dostupno": true }
+{ "index": { "_id": "3" } }
+{ "naslov": "Tvrđava", "autor": "Meša Selimović", "zanr": "roman", "opis": "Roman o čovjeku, društvu i borbi za smisao.", "godina": 1970, "cijena": 20.00, "dostupno": false }
+{ "index": { "_id": "4" } }
+{ "naslov": "Travnička hronika", "autor": "Ivo Andrić", "zanr": "povijesni roman", "opis": "Priča o diplomatskom i društvenom životu u Travniku.", "godina": 1942, "cijena": 19.90, "dostupno": true }
+{ "index": { "_id": "5" } }
+{ "naslov": "Zločin i kazna", "autor": "Fjodor Dostojevski", "zanr": "roman", "opis": "Psihološki roman o krivnji, savjesti i iskupljenju.", "godina": 1866, "cijena": 24.50, "dostupno": true }
+
+###Provjera broja dokumenata
+GET /knjige/_count
