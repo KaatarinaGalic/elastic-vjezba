@@ -79,3 +79,37 @@ GET /knjige/_search
     }
   }
 }
+### Zadatak 4 — bool query (filter + match + sort)
+GET /knjige/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "opis": "roman"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "dostupno": true
+          }
+        },
+        {
+          "range": {
+            "cijena": {
+              "lte": 22
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "cijena": "asc"
+    }
+  ]
+}

@@ -21,11 +21,11 @@ Polja autor i zanr su tipa keyword jer se koriste za tocno podudaranje i filtrir
 Polje opis predstavlja duži tekst i zato treba biti tipa text. Na taj način Elasticsearch može analizirati sadržaj i omogućiti pretragu po riječima i pojmovima unutar opisa. Kada bi opis bio keyword, tretirao bi se kao jedna cjelina i pretraga po pojedinim riječima ne bi bila moguća, što bi značajno smanjilo funkcionalnost pretrage.
 
 # 3.Zadatak
-## (11.	u ODGOVORI.md objasniti zašto pretraga 'cuprija' pronalazi dokument 'Na Drini ćuprija')
+### 11. u ODGOVORI.md objasniti zašto pretraga 'cuprija' pronalazi dokument 'Na Drini ćuprija'
 Pretraga pojma cuprija pronalazi dokument "Na Drini ćuprija" jer analyzer koristi filter asciifolding.
 Taj filter uklanja dijakritičke znakove, pa se riječ "ćuprija" indeksira i kao "cuprija" što omogućava uspješnu pretragu bez kvačica.
 
-## 12.pogledati polje _score u rezultatu i objasniti što označava i zašto se razlikuje među dokumentima
+### 12. pogledati polje _score u rezultatu i objasniti što označava i zašto se razlikuje među dokumentima
 Polje _score predstavlja relevantnost dokumenta u odnosu na upit.
 Veći _score znači da dokument bolje odgovara pretraživanom pojmu.
 Razlike u _score vrijednostima mogu biti zbog ucestalosti pojma u tekstu,duzine teksta ili pozicije riječi u dokumentu.
