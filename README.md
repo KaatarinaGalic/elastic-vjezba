@@ -14,7 +14,7 @@ docker compose up -d
 curl http://localhost:9200
 curl http://localhost:9200/_cat/health?v
 
-# Provjera pokrenutih kontejnera:
+## Provjera pokrenutih kontejnera:
 docker compose ps
 Oba servisa (elasticsearch i kibana) moraju imati status "running".
 
