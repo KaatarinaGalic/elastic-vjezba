@@ -113,3 +113,19 @@ GET /knjige/_search
     }
   ]
 }
+
+### Zadatak 5 -analyzer
+
+###primjer iz koraka
+POST /knjige/_analyze
+{
+  "analyzer": "hrvatski_analyzer",
+  "text": "Brzi smeđi most preko rijeke!"
+}
+
+###zadatak 5 
+POST /knjige/_analyze
+{
+  "analyzer": "hrvatski_analyzer",
+  "text": "Na Drini ćuprija"
+}

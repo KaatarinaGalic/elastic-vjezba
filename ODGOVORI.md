@@ -30,4 +30,81 @@ Polje _score predstavlja relevantnost dokumenta u odnosu na upit.
 Veći _score znači da dokument bolje odgovara pretraživanom pojmu.
 Razlike u _score vrijednostima mogu biti zbog ucestalosti pojma u tekstu,duzine teksta ili pozicije riječi u dokumentu.
 
+# 5.Zadatak
+### lista tokena za korak 
+{
+  "tokens": [
+    {
+      "token": "brzi",
+      "start_offset": 0,
+      "end_offset": 4,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "smedi",
+      "start_offset": 5,
+      "end_offset": 10,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "most",
+      "start_offset": 11,
+      "end_offset": 15,
+      "type": "<ALPHANUM>",
+      "position": 2
+    },
+    {
+      "token": "preko",
+      "start_offset": 16,
+      "end_offset": 21,
+      "type": "<ALPHANUM>",
+      "position": 3
+    },
+    {
+      "token": "rijeke",
+      "start_offset": 22,
+      "end_offset": 28,
+      "type": "<ALPHANUM>",
+      "position": 4
+    }
+  ]
+}
+### lista tokena za zadatak "Na Drini ćuprija"
+{
+  "tokens": [
+    {
+      "token": "na",
+      "start_offset": 0,
+      "end_offset": 2,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "drini",
+      "start_offset": 3,
+      "end_offset": 8,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "cuprija",
+      "start_offset": 9,
+      "end_offset": 16,
+      "type": "<ALPHANUM>",
+      "position": 2
+    }
+  ]
+}
+
+### 19.objasniti što rade filtri lowercase i asciifolding i u čemu je razlika!
+lowercase pretvara sva slova u mala npr riječ "Drini" u "drini", dok asciifolding uklanja dijakritike npr "ćuprija" u "cuprija".
+Razlika je u tome što lowercase mijenja velika/mala slova, a asciifolding uklanja posebne znakove.
+
+### 20.objasniti zašto je analyzer ključan za full-text search i što bi se dogodilo da ga ne koristimo!
+Analyzer omogučuje da se tekst razbije na riječi i normalizira te pretraga može pronaći riječi i kada nisu identične. Na primjer upit "cuprija" pronalazi ćuprija jer analyzer uklanja dijakritike.
+
+
+
 
