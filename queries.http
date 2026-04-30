@@ -37,7 +37,8 @@ PUT /knjige
 ###Dohvat svih podataka iz indeksa
 GET /knjige
 
-###Bulk unos podatakaPOST /knjige/_bulk
+###Bulk unos podataka
+POST /knjige/_bulk
 { "index": { "_id": "1" } }
 { "naslov": "Na Drini ćuprija", "autor": "Ivo Andrić", "zanr": "roman", "opis": "Povijesni roman o mostu, ljudima i vremenu.", "godina": 1945, "cijena": 18.50, "dostupno": true }
 { "index": { "_id": "2" } }
@@ -193,4 +194,157 @@ GET /knjige/_search
   }
 }
 
+### ZAVRŠNI Zadatak
 
+###Kreiranje indeksa filmovi mapping
+# Definirana je struktura indeksa i tipovi polja te analyzer za tekstualna polja
+
+PUT /filmovi
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "hrvatski_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "naslov": {
+        "type": "text",
+        "analyzer": "hrvatski_analyzer",
+        "fields": {
+          "keyword": { "type": "keyword" }
+        }
+      },
+      "redatelj": { "type": "keyword" },
+      "zanr": { "type": "keyword" },
+      "opis": {
+        "type": "text",
+        "analyzer": "hrvatski_analyzer"
+      },
+      "godina": { "type": "integer" },
+      "ocjena": { "type": "double" },
+      "dostupno": { "type": "boolean" }
+    }
+  }
+}
+
+###Bulk unos podataka
+
+# Ubacujemo više filmova odjednom pomoću Bulk API-ja bržee je nego pojedinačno
+
+POST /filmovi/_bulk
+{ "index": { "_id": "9" } }
+{ "naslov": "The Grand Budapest Hotel", "redatelj": "Wes Anderson", "zanr": "komedija", "opis": "Ekscentrični hotel i krađa umjetnine u međuratnoj Europi.", "godina": 2014, "ocjena": 8.1, "dostupno": true }
+{ "index": { "_id": "10" } }
+{ "naslov": "Jojo Rabbit", "redatelj": "Taika Waititi", "zanr": "satira", "opis": "Dječak u nacističkoj Njemačkoj čiji je imaginarni prijatelj Hitler.", "godina": 2019, "ocjena": 7.9, "dostupno": true }
+{ "index": { "_id": "11" } }
+{ "naslov": "Braveheart", "redatelj": "Mel Gibson", "zanr": "povijesni", "opis": "Borba Škota za slobodu protiv engleske krune.", "godina": 1995, "ocjena": 8.3, "dostupno": false }
+{ "index": { "_id": "12" } }
+{ "naslov": "The King's Speech", "redatelj": "Tom Hooper", "zanr": "povijesna drama", "opis": "Kralj George VI pokušava prevladati mucanje uz pomoć terapeuta.", "godina": 2010, "ocjena": 8.0, "dostupno": true }
+{ "index": { "_id": "13" } }
+{ "naslov": "Forrest Gump", "redatelj": "Robert Zemeckis", "zanr": "drama", "opis": "Jednostavan čovjek prolazi kroz ključne događaje američke povijesti.", "godina": 1994, "ocjena": 8.8, "dostupno": true }
+{ "index": { "_id": "14" } }
+{ "naslov": "Django Unchained", "redatelj": "Quentin Tarantino", "zanr": "western", "opis": "Oslobođeni rob postaje lovac na ucjene u Americi prije građanskog rata.", "godina": 2012, "ocjena": 8.4, "dostupno": true }
+{ "index": { "_id": "15" } }
+{ "naslov": "La La Land", "redatelj": "Damien Chazelle", "zanr": "romansa", "opis": "Ljubav dvoje umjetnika u modernom Los Angelesu.", "godina": 2016, "ocjena": 8.0, "dostupno": false }
+{ "index": { "_id": "16" } }
+{ "naslov": "The Truman Show", "redatelj": "Peter Weir", "zanr": "drama", "opis": "Čovjek nesvjesno živi u reality showu.", "godina": 1998, "ocjena": 8.2, "dostupno": true }
+
+###MATCH UPIT
+# Full-text pretraga po opisu traži filmove koji sadrže riječi ljubav ili umjetnici
+
+GET /filmovi/_search
+{
+  "query": {
+    "match": {
+      "opis": "ljubav umjetnici"
+    }
+  }
+}
+### TERM upit
+# Točna pretraga po keyword polju vraća samo filmove redatelja Quentin Tarantino
+
+GET /filmovi/_search
+{
+  "query": {
+    "term": {
+      "redatelj": "Quentin Tarantino"
+    }
+  }
+}
+
+### RANGE upit
+# Filtrira filmove s ocjenom većom ili jednakom 8.0
+
+GET /filmovi/_search
+{
+  "query": {
+    "range": {
+      "ocjena": {
+        "gte": 8.0
+      }
+    }
+  }
+}
+
+### Bool upit
+# Kombinira više uvjetaa:
+# - opis sadrži riječ covjek
+# - film je dostupan
+# - ocjena je >= 7
+
+GET /filmovi/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "opis": "covjek"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "dostupno": true
+          }
+        },
+        {
+          "range": {
+            "ocjena": {
+              "gte": 7
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+### agregacija koja prikazuje broj filmova po žanru i prosječnu ocjenu unutar svakog žanra
+# Grupira filmove po žanru i računa prosječnu ocjenu unutar svakog žanra
+
+GET /filmovi/_search
+{
+  "size": 0,
+  "aggs": {
+    "po_zanru": {
+      "terms": {
+        "field": "zanr"
+      },
+      "aggs": {
+        "prosjecna_ocjena": {
+          "avg": {
+            "field": "ocjena"
+          }
+        }
+      }
+    }
+  }
+}

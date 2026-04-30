@@ -105,6 +105,15 @@ Razlika je u tome što lowercase mijenja velika/mala slova, a asciifolding uklan
 ### 20.objasniti zašto je analyzer ključan za full-text search i što bi se dogodilo da ga ne koristimo!
 Analyzer omogučuje da se tekst razbije na riječi i normalizira te pretraga može pronaći riječi i kada nisu identične. Na primjer upit "cuprija" pronalazi ćuprija jer analyzer uklanja dijakritike.
 
+# Završni zadatak - filmovi
+### 30. Elasticsearch vs SQL LIKE
+Elasticsearch ima prednost nad SQL LIKE pretragom jer koristi invertirani indeks koji omogućuje vrlo brzu pretragu velikih količina teksta.
+Za razliku od SQL LIKE '%tekst%' koji mora prolaziti kroz svaki zapis, Elasticsearch može odmah pronaći relevantne dokumente. Taakođer, Elasticsearch koristi analyzere koji omogućuju pretragu bez obzira na velika/mala slova i dijakritike. Podržava i rangiranje rezultata (_score), što znači da najrelevantniji rezultati dolaze prvi.
+SQL LIKE vraća samo točne podudarnosti bez razumijevanja jezika.
+Elasticsearch omogućuje napredne opcije kao što su fuzzy pretraga, sinonimi i kombinacija uvjeta.
+Osim toga, Elasticsearch je distribuiran sustav i može se skalirati na više servera, dok SQL baze imaju ograničenja u skaliranju za ovakve tipove pretrage.
+
+
 
 
 
