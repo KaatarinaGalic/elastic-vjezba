@@ -1,0 +1,38 @@
+### Kreiranje indeksa knjige (mapping)
+PUT /knjige
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "hrvatski_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "naslov": {
+        "type": "text",
+        "analyzer": "hrvatski_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "autor": { "type": "keyword" },
+      "zanr": { "type": "keyword" },
+      "opis": {
+        "type": "text",
+        "analyzer": "hrvatski_analyzer"
+      },
+      "godina": { "type": "integer" },
+      "cijena": { "type": "double" },
+      "dostupno": { "type": "boolean" }
+    }
+  }
+}
+###Dohvat svih podataka iz indeksa
+GET /knjige
